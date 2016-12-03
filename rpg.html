@@ -1,0 +1,118 @@
+<html>
+<head>
+    <link rel="stylesheet" href="casseBriques.css"/>
+    <title>Casse_briques</title>
+</head>
+<body>
+	
+<canvas id="canvas" width="1280" height="640"></canvas>
+
+<script >
+(function () {
+  var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+  window.requestAnimationFrame = requestAnimationFrame;
+})();
+
+var hero = {
+        x: 360,
+        y: 420,
+        largeur: 32,
+        hauteur: 48,
+        imageSrc: 'guy.png'
+    };
+
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var keys = [];
+
+var mapImage=new Image();
+mapImage.src="grass.png";
+var heroImage=new Image();
+heroImage.src="guy.png";
+
+
+
+window.addEventListener("keydown", function (e) {
+  keys[e.keyCode] = true;
+});
+window.addEventListener("keyup", function (e) {
+   
+        keys[e.keyCode] = false;
+    
+});
+
+jeu();
+
+function jeu(){
+    
+    gestionClavier();
+    dessine();
+    requestAnimationFrame(jeu);
+}        
+
+function dessine(){
+        
+        context.clearRect(0,0,canvas.width,canvas.height);
+         
+         for(var i=0;i<20;i++){
+			  for(var j=0;j<10;j++){
+         context.drawImage(mapImage,i*64,j*64,64 ,64 ); 
+        }
+	}
+        //context.beginPath();
+        
+        context.drawImage(heroImage, 0 , 0,hero.largeur, hero.hauteur, hero.x, hero.y, hero.largeur, hero.hauteur);
+         //count = count + 32;
+         
+         
+	
+		
+       // context.drawImage(heroImage, hero.x, hero.y, hero.largeur, hero.hauteur);
+        
+	          
+        //context.fillStyle = '#92dbd4' ;
+        //context.fill();
+        
+       
+        
+              
+      }   
+
+function gestionClavier(){
+            
+            if(keys[39] ){
+                hero.x+=10;
+                
+            } 
+           
+            if(keys[37] ){
+                hero.x-=10;
+                
+            }
+            if(keys[40] ){
+                hero.y+=10;
+                
+            } 
+           
+            if(keys[38] ){
+                hero.y-=10;
+                
+            }
+          
+           
+            
+        }  
+    
+
+	
+	
+ 
+
+
+
+
+
+</script>
+</body>
+</html>
