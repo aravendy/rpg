@@ -31,7 +31,9 @@ mapImage.src="grass.png";
 var heroImage=new Image();
 heroImage.src="guy.png";
 
-
+var xFrame = 0;
+var yFrame = 0;
+var xPicture = 0;
 
 window.addEventListener("keydown", function (e) {
   keys[e.keyCode] = true;
@@ -60,44 +62,45 @@ function dessine(){
          context.drawImage(mapImage,i*64,j*64,64 ,64 ); 
         }
 	}
-        //context.beginPath();
-        
-        context.drawImage(heroImage, 0 , 0,hero.largeur, hero.hauteur, hero.x, hero.y, hero.largeur, hero.hauteur);
-         //count = count + 32;
-         
-         
-	
-		
-       // context.drawImage(heroImage, hero.x, hero.y, hero.largeur, hero.hauteur);
-        
-	          
-        //context.fillStyle = '#92dbd4' ;
-        //context.fill();
-        
        
-        
-              
+       /* if(!keys[39] && !keys[37] && !keys[40] && !keys[38]){
+        context.drawImage(heroImage, 0 , 0 ,hero.largeur, hero.hauteur, hero.x, hero.y, hero.largeur, hero.hauteur);
+	}
+        if(keys[39] || keys[37] || keys[40] || keys[38]){
+        */
+        context.drawImage(heroImage, xFrame , yFrame ,hero.largeur, hero.hauteur, hero.x, hero.y, hero.largeur, hero.hauteur);
+      if (keys[39] || keys[37] || keys[40] || keys[38]){ xPicture = xPicture + 16;}
+        if(xPicture == 32 ){
+        xFrame = xFrame + 32;
+        xPicture = 0; 
+	//}
+        //xFrame = Math.floor(xPicture/32);
+        if (xFrame == 128){
+			    xFrame = 0;
+			}
+	
+}      
       }   
 
 function gestionClavier(){
             
             if(keys[39] ){
-                hero.x+=10;
-                
+                hero.x+=5;
+                yFrame = 96;
             } 
            
             if(keys[37] ){
-                hero.x-=10;
-                
+                hero.x-=5;
+                yFrame = 48;
             }
             if(keys[40] ){
-                hero.y+=10;
-                
+                hero.y+=5;
+                yFrame = 0;
             } 
            
             if(keys[38] ){
-                hero.y-=10;
-                
+                hero.y-=5;
+                yFrame = 144;
             }
           
            
@@ -116,3 +119,4 @@ function gestionClavier(){
 </script>
 </body>
 </html>
+
